@@ -7,7 +7,7 @@ for k=1:T-1
     u=expm(1i*sum(times(v,A),3));B=[B;u];
 end
 
-%B=MUB;  %---T MUBs (T<=d+1)---------------
+%B=MUB;B(T*d+1:(d+1)*d,:)=[];  %---T MUBs (T<=d+1)---------------
 %v=2*pi*rand(1,d^2-1).^7;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
 %B((T-1)*d+1:T*d,:)=u*B((T-1)*d+1:T*d,:);% Rotate the Tth basis away from perfectly unbiased to the orthers
 
