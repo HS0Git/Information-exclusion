@@ -43,7 +43,7 @@ scatter(IU,entropys,sz,[1,0.5,0],'.'), hold on;
 plot(s,SentropyIC(T/d+(T-s)*(1-1/d),T),'b--','linewidth',1.13), hold on;
 
 title('d=2');grid on;xlabel('Index of uncertainty');ylabel('Sum of entropies');
-%axis([0,N-1,0,1.8]);
+%axis([0,T-1,0,T*log2(d)]);
 axis([0,T-1,0,2]);
 set(get(gca,'XLabel'),'FontSize',16);
 set(get(gca,'YLabel'),'FontSize',16);
