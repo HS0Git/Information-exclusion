@@ -18,8 +18,8 @@ parfor n=1:1000
      eig_W=sort(eig(W),'descend');eig_g=eig_W(2);%the first eigenvalue of view operator=the second eigenvalue of W
      IU=[IU T-eig_g];
      %-----------random pure states and upper bound on IC---------
-      e1=T;e2=T;%temporary variables
-     for m=1:1000 %minimize over random states
+      e1=T*log2(d);e2=T*log2(d);%temporary variables
+     for m=1:1000 %minimize entropies over random states
          state=diag([1 zeros(1,d-1)]);
          v=2*pi*rand(1,d^2-1).^2;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
          state=transpose(conj(u))*state*u;
