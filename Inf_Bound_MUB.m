@@ -1,19 +1,20 @@
 d=2;%dimension
 T=3;%the number of measurement bases
-[A,MUB]=mub(d);
-B=eye(d); %---T random unitaries-----------
-for k=1:T-1
-    v=2*pi*rand(1,d^2-1).^3;v=reshape(v,[1,1,d^2-1]);%expansion parameters
-    u=expm(1i*sum(times(v,A),3));B=[B;u];
+[A,MUB]=mub(d);MUB(T*d+1:(d+1)*d,:)=[];% T MUBs
+
+% B=eye(d); %---T random unitaries-----------
+% for k=1:T-1
+%     v=2*pi*rand(1,d^2-1).^3;v=reshape(v,[1,1,d^2-1]);%expansion parameters
+%     u=expm(1i*sum(times(v,A),3));B=[B;u];
+% end
+
+B=eye(d);
+for k=1:T-1  %T bases rotated from MUB
+    v=2*pi*rand(1,d^2-1).^11;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
+    B=[B;u*MUB(k*d+1:(k+1)*d,:)];
 end
-
-%B=MUB;B(T*d+1:(d+1)*d,:)=[];  %---T MUBs (T<=d+1)---------------
-%v=2*pi*rand(1,d^2-1).^7;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
-%B((T-1)*d+1:T*d,:)=u*B((T-1)*d+1:T*d,:);% Rotate the Tth basis away from perfectly unbiased to the orthers
-
-
-W=conj(B)*transpose(B);%-------Overlap matrix--
-W=abs(W.^2);eig_W=sort(eig(W),'descend');eig_g=eig_W(2);%the second eigenvalue of W=the first eigenvalue of view operator
+W=conj(B)*transpose(B);W=abs(W.^2);         %overlap matrix--
+eig_W=sort(eig(W),'descend');eig_g=eig_W(2);%the second eigenvalue of W=the first eigenvalue of view operator
 %-------RANDOM STATE
 mixity=[];inf_gain=[];
 parfor j=1:10000
@@ -24,9 +25,10 @@ parfor j=1:10000
   %random unitary
   v=2*pi*rand(1,d^2-1).^3;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
   state=transpose(conj(u))*state*u;
-  p=diag(conj(B)*state*transpose(B)); %probability vector for outcomes
+  p=diag(conj(B)*state*transpose(B));
+  %-------information gain
   p=p-1/d;
-  inf_gain=[inf_gain sum(p.^2)];      %sum of information gain  
+  inf_gain=[inf_gain sum(p.^2)];     
 end
 %-------FIGURE
  sz=30;figure,
@@ -42,4 +44,4 @@ end
  set(gca,'fontsize',17);
  grid on;grid minor; 
 
-disp(transpose(eg));
+disp(transpose(eig_W));

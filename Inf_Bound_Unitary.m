@@ -4,8 +4,8 @@ B=eye(d);
 for k=1:T-1
     B=[B;RandomUnitary(d)];
 end 
-W=conj(B)*transpose(B);%-------Overlap matrix--
-W=abs(W.^2);eig_W=sort(eig(W),'descend');eig_g=eig_W(2);%the first eigenvalue of view operator=the second eigenvalue of W
+W=conj(B)*transpose(B);W=abs(W.^2);%-------Overlap matrix--
+eig_W=sort(eig(W),'descend');eig_g=eig_W(2);%the first eigenvalue of view operator=the second eigenvalue of W
 %-------RANDOM STATE----
 mixity=[];inf_gain=[];
 parfor k=1:10000
