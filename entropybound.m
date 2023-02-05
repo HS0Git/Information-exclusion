@@ -39,7 +39,7 @@ scatter(IU,entropy2,sz,[.55,0.55,.55],'.'), hold on;
 plot(s,-T*log2((1/d+(T-s)/T/d)),'r','linewidth',1.13), 
 hold on;
 scatter(IU,entropys,sz,[1,0.5,0],'.'), hold on;
-%lower bound on Shannon entropy given by Eq.(19) of the main text//IC=T/d+(T-IU)(1-1/d)
+%lower bound on Shannon entropy given by Eq.(20) of the main text//IC=T/d+(T-IU)(1-1/d)
 plot(s,SentropyIC(T/d+(T-s)*(1-1/d),T),'b--','linewidth',1.13), hold on;
 
 title('d=2');grid on;xlabel('Index of uncertainty');ylabel('Sum of entropies');
