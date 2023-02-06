@@ -19,9 +19,9 @@ parfor n=1:1000
      IU=[IU T-eig_g];
      %-----------random pure states and upper bound on IC---------
       e1=T*log2(d);e2=T*log2(d);%temporary variables
-     for m=1:1000 %minimize entropies over random states
+     for m=1:5000 %minimize entropies over random pure states
          state=diag([1 zeros(1,d-1)]);
-         v=2*pi*rand(1,d^2-1).^3;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
+         v=2*pi*rand(1,d^2-1).^2;v=reshape(v,[1,1,d^2-1]);u=expm(1i*sum(times(v,A),3));
          state=transpose(conj(u))*state*u;
          p=diag(conj(B)*state*transpose(B));p=abs(transpose(p));%probability vector for measurement outcomes
          s=-p*transpose(log2(p+eps));%the sum of shannon entropies
