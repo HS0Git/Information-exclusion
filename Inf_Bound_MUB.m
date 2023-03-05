@@ -34,7 +34,7 @@ end
  sz=30;figure,
  scatter(mixity,inf_gain,sz,[.6,1,.6],'.'), hold on;
  s=0:0.001:1-1/d;
- plot(s,eig_g*s,'r--','linewidth',1.2), hold on;  %our upper bound on information gain given in Eq.(11) of the main text
+ plot(s,eig_g*s,'r--','linewidth',1.2), hold on;  %our upper bound on information gain given in Eq.(8) of the main text
    
  grid on;xlabel('mixity');ylabel('Information gain');
  axis([0,1-1/d,0,T]);
